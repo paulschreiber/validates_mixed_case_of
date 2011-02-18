@@ -1,6 +1,8 @@
 module ActiveRecord
   module Validations
     module ClassMethods
+      ALL_CAPS = 1
+      ALL_LOWERCASE = -1
 
       def validates_mixed_case_of(*args)
         configuration = { :on => :save, :with => nil}
@@ -13,22 +15,22 @@ module ActiveRecord
           error = nil
           
           if (value.upcase == value)
-            error = 1
+            error = ALL_CAPS
           elsif (value.downcase == value)
-            error = -1
+            error = ALL_LOWERCASE
           end
           
           next if error.nil?
           
           item_name = I18n.t("activerecord.models.attributes.#{name.underscore}.#{attr_name}", :default => nil) || configuration[:attribute_name] || attr_name
           
-          if error == 1
+          if error == ALL_CAPS
            message = I18n.t("activerecord.errors.models.attributes.#{name.underscore}.#{attr_name}.all_caps",
                        :item => item_name,
                        :default => [:"activerecord.errors.models.#{name.underscore}.all_caps",
                            configuration[:all_caps],
                           :'activerecord.errors.messages.all_caps'])
-          elsif error == 2
+          elsif error == ALL_LOWERCASE
             message = I18n.t("activerecord.errors.models.attributes.#{name.underscore}.#{attr_name}.all_lowercase",
                         :item => item_name,
                         :default => [:"activerecord.errors.models.#{name.underscore}.all_lowercase",
