@@ -5,7 +5,7 @@ module ActiveRecord
       ALL_LOWERCASE = -1
 
       def validates_mixed_case_of(*args)
-        configuration = { :on => :save, :with => nil}
+        configuration = { :with => nil }
         configuration.update(args.pop) if args.last.is_a?(Hash)
 
         
