@@ -22,16 +22,16 @@ module ActiveRecord
           
           next if error.nil?
           
-          item_name = I18n.t("activerecord.models.attributes.#{name.underscore}.#{attr_name}", :default => nil) || configuration[:attribute_name] || attr_name
+          item_name = I18n.t("activerecord.models.#{name.underscore}.attributes.#{attr_name}", :default => nil) || configuration[:attribute_name] || attr_name
           
           if error == ALL_CAPS
-           message = I18n.t("activerecord.errors.models.attributes.#{name.underscore}.#{attr_name}.all_caps",
+           message = I18n.t("activerecord.errors.models.#{name.underscore}.attributes.#{attr_name}.all_caps",
                        :item => item_name,
                        :default => [:"activerecord.errors.models.#{name.underscore}.all_caps",
                            configuration[:all_caps],
                           :'activerecord.errors.messages.all_caps'])
           elsif error == ALL_LOWERCASE
-            message = I18n.t("activerecord.errors.models.attributes.#{name.underscore}.#{attr_name}.all_lowercase",
+            message = I18n.t("activerecord.errors.models.#{name.underscore}.attributes.#{attr_name}.all_lowercase",
                         :item => item_name,
                         :default => [:"activerecord.errors.models.#{name.underscore}.all_lowercase",
                             configuration[:all_lowercase],
